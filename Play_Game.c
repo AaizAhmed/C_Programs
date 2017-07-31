@@ -1,46 +1,5 @@
 #include "board.h"
 
-int is_valid(char str[]);
-
-void play_game()
-{
-    int col_num;
-
-    for (int i = 0; i < ROWS*COLUMNS; i++)
-    {
-        if (i % 2 == 0)
-        {
-            printf("Player 1: What is your choice?\n");
-            scanf("%d", &col_num);
-
-            make_move(0, col_num);
-            print_board();
-
-            if (is_win())
-            {
-                printf("Player 1: Congratulations!! You won!\n");
-                return;
-            }
-        }
-        else
-        {
-            printf("Player 2: What is your choice?\n");
-            scanf("%d", &col_num);
-
-            make_move(1, col_num);
-            print_board();
-
-            if (is_win())
-            {
-                printf("Player 2: Congratulations!! You won!\n");
-                return;
-            }
-        }
-    }
-
-    printf("There was a draw!\n");
-}
-
 int is_valid(char str[])
 {
     char num[20];
@@ -62,6 +21,75 @@ int is_valid(char str[])
     return atoi(num);
 }
 
+int get_column()
+{
+    char num[20];
+
+    while(true)
+    {
+        printf("Enter a number between 1 and %d: ", COLUMNS);
+        gets(num);
+        printf("\n");
+
+        int check = atoi(num);
+
+        if (check >= 1 && check <= COLUMNS)
+        {
+            if (is_full(check))
+            {
+                printf("This column is already full. Try a different one\n");
+            }
+            else
+               break;
+        }
+        else
+            printf("Wrong Input! Enter a valid numbers\n\n");
+    }
+
+    return atoi(num);
+}
+
+void play_game()
+{
+    int col_num;
+
+    for (int i = 0; i < ROWS*COLUMNS; i++)
+    {
+        if (i % 2 == 0)
+        {
+            printf("\nPlayer 1: What is your choice?\n");
+
+            int num = get_column();
+
+            make_move(0, num);
+            print_board();
+
+            if (is_win())
+            {
+                printf("\nPlayer 1: Congratulations!! You won!\n");
+                return;
+            }
+        }
+        else
+        {
+            printf("\nPlayer 2: What is your choice?\n");
+
+            int num = get_column();
+
+            make_move(1, num);
+            print_board();
+
+            if (is_win())
+            {
+                printf("\nPlayer 2: Congratulations!! You won!\n");
+                return;
+            }
+        }
+    }
+
+    printf("\nThere was a draw!\n");
+}
+
 int main()
 {
     char quit = 'y';
@@ -76,7 +104,7 @@ int main()
 
         play_game();
 
-        printf("Do you want to play again? y or n\n");
+        printf("\nDo you want to play again? y or n\n");
         scanf(" %c", &quit);
     }
 

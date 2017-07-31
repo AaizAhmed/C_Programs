@@ -12,8 +12,11 @@ bool diagonal_one_win();
 bool diagonal_two_win();
 bool is_win();
 bool is_draw();
-bool is_full();
+bool is_full(int col);
 
 void set_board(int row, int col);
 void print_board();
 void free_board();
+
+int is_valid(char str[]);
+int get_column();
