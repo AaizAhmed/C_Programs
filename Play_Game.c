@@ -7,7 +7,7 @@ int is_valid(char str[])
     while(true)
     {
         printf("Enter the number of %s.\nMinimum accepted value is 5: ", str);
-        gets(num);
+        scanf("%s", num);
         printf("\n");
 
         if (atoi(num) >= 5)
@@ -28,7 +28,7 @@ int get_column()
     while(true)
     {
         printf("Enter a number between 1 and %d: ", COLUMNS);
-        gets(num);
+        scanf("%s", num);
         printf("\n");
 
         int check = atoi(num);
